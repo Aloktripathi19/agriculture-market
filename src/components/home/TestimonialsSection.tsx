@@ -55,11 +55,9 @@ export function TestimonialsSection() {
               <p className="text-slate-600 text-sm leading-relaxed mb-6 italic">&ldquo;{t.review}&rdquo;</p>
 
               <div className="flex items-center gap-3">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-11 h-11 rounded-full object-cover border-2 border-primary-100"
-                />
+                <div className="w-11 h-11 rounded-full gradient-green flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-base">{t.name.charAt(0).toUpperCase()}</span>
+                </div>
                 <div>
                   <p className="font-semibold text-slate-900 text-sm">{t.name}</p>
                   <p className="text-xs text-slate-500">{t.company}</p>

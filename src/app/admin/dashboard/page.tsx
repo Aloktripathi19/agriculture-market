@@ -8,25 +8,6 @@ import type { Inquiry, Product } from '@/types';
 import { productService } from '@/lib/services/productService';
 import { inquiryService } from '@/lib/services/inquiryService';
 import { formatDate, INQUIRY_STATUS_COLORS } from '@/lib/utils';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-
-const chartData = [
-  { month: 'Jan', inquiries: 12, products: 45 },
-  { month: 'Feb', inquiries: 18, products: 47 },
-  { month: 'Mar', inquiries: 24, products: 50 },
-  { month: 'Apr', inquiries: 32, products: 52 },
-  { month: 'May', inquiries: 28, products: 55 },
-  { month: 'Jun', inquiries: 40, products: 58 },
-];
-
-const exportData = [
-  { month: 'Jan', value: 4.2 },
-  { month: 'Feb', value: 5.8 },
-  { month: 'Mar', value: 7.1 },
-  { month: 'Apr', value: 6.9 },
-  { month: 'May', value: 8.4 },
-  { month: 'Jun', value: 9.2 },
-];
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -88,35 +69,6 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl border border-slate-100 p-5">
-            <h3 className="font-bold text-slate-900 mb-5">Monthly Inquiries</h3>
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#94a3b8' }} />
-                <YAxis tick={{ fontSize: 12, fill: '#94a3b8' }} />
-                <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }} />
-                <Bar dataKey="inquiries" fill="#16a34a" radius={[6, 6, 0, 0]} name="Inquiries" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="bg-white rounded-2xl border border-slate-100 p-5">
-            <h3 className="font-bold text-slate-900 mb-5">Export Value Trend (₹ Crore)</h3>
-            <ResponsiveContainer width="100%" height={220}>
-              <LineChart data={exportData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#94a3b8' }} />
-                <YAxis tick={{ fontSize: 12, fill: '#94a3b8' }} />
-                <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }} />
-                <Line type="monotone" dataKey="value" stroke="#16a34a" strokeWidth={2.5} dot={{ fill: '#16a34a', strokeWidth: 0, r: 4 }} name="Value (₹Cr)" />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
         {/* Recent Inquiries */}
         <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
           <div className="flex items-center justify-between p-5 border-b border-slate-50">
@@ -163,7 +115,6 @@ export default function AdminDashboard() {
             { icon: Package, label: 'Add New Crop', href: '/admin/products', color: 'gradient-green' },
             { icon: MessageSquare, label: 'Manage Inquiries', href: '/admin/inquiries', color: 'bg-blue-500' },
             { icon: BookOpen, label: 'Write Article', href: '/admin/blog', color: 'bg-purple-500' },
-            { icon: Tag, label: 'Add Category', href: '/admin/categories', color: 'bg-amber-500' },
           ].map((action) => (
             <Link
               key={action.label}

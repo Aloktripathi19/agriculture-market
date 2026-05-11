@@ -61,7 +61,7 @@ export async function getDB(): Promise<IDBPDatabase<AgroDB>> {
 }
 
 async function seedInitialData(db: IDBPDatabase<AgroDB>) {
-  const seededKey = 'agro-seeded-v2';
+  const seededKey = 'agro-seeded-v4';
   if (localStorage.getItem(seededKey)) return;
 
   const tx = db.transaction(['products', 'categories', 'testimonials', 'faqs', 'blog_posts', 'admin_users'], 'readwrite');

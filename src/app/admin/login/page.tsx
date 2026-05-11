@@ -31,7 +31,7 @@ export default function AdminLoginPage() {
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { email: 'admin@agroexport.com', password: 'Admin@123' },
+    defaultValues: { email: '', password: '' },
   });
 
   const onSubmit = async (data: FormData) => {
@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
     if (ok) {
       router.push('/admin/dashboard');
     } else {
-      setError('Invalid credentials. Use admin@agroexport.com / Admin@123');
+      setError('Invalid credentials. Please check your email and password.');
     }
   };
 
@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
           <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl mb-6">
             <ShieldCheck className="w-4 h-4 text-amber-600 flex-shrink-0" />
             <p className="text-xs text-amber-700">
-              Admin-only access. Use: <strong>admin@agroexport.com</strong> / <strong>Admin@123</strong>
+              Admin-only access. Authorised personnel only.
             </p>
           </div>
 

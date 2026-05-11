@@ -65,7 +65,7 @@ export function AdminLayout({ children }: Props) {
             <Wheat className="w-4 h-4 text-white" />
           </div>
           <div>
-            <span className="font-bold font-display text-slate-900 text-sm">AgroExport</span>
+            <span className="font-bold font-display text-slate-900 text-sm">Arihant Enterprises</span>
             <p className="text-xs text-slate-400">Admin Panel</p>
           </div>
         </Link>
@@ -106,7 +106,9 @@ export function AdminLayout({ children }: Props) {
 
       <div className="p-4 border-t border-slate-100">
         <div className="flex items-center gap-3 mb-3">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&q=80" alt="Admin" className="w-8 h-8 rounded-full object-cover" />
+          <div className="w-8 h-8 rounded-full gradient-green flex items-center justify-center text-white text-sm font-bold shrink-0">
+              {session.name.charAt(0).toUpperCase()}
+            </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-slate-900 truncate">{session.name}</p>
             <p className="text-xs text-slate-400 truncate">{session.email}</p>
@@ -142,7 +144,7 @@ export function AdminLayout({ children }: Props) {
               className="fixed left-0 top-0 bottom-0 w-72 bg-white z-50 flex flex-col shadow-2xl lg:hidden"
             >
               <div className="flex items-center justify-between p-4 border-b border-slate-100">
-                <span className="font-bold text-slate-900">Admin Menu</span>
+                <span className="font-bold font-display text-slate-900">Arihant Enterprises</span>
                 <button onClick={() => setSidebarOpen(false)} className="p-2 rounded-lg hover:bg-slate-100">
                   <X className="w-5 h-5" />
                 </button>

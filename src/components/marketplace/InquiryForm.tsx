@@ -165,7 +165,7 @@ export function InquiryForm({ productId, productName }: Props) {
 
       <div className="mt-5 pt-5 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
         <a
-          href="https://wa.me/919876543210"
+          href="https://wa.me/917999837117"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 text-sm font-medium hover:bg-emerald-100 transition-colors border border-emerald-200"
@@ -174,7 +174,7 @@ export function InquiryForm({ productId, productName }: Props) {
           WhatsApp Us
         </a>
         <a
-          href="tel:+919876543210"
+          href="tel:+917999837117"
           className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-xl bg-primary-50 text-primary-700 text-sm font-medium hover:bg-primary-100 transition-colors border border-primary-200"
         >
           <Phone className="w-4 h-4" />

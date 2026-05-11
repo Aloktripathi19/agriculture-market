@@ -43,7 +43,7 @@ export function Footer() {
                 <Wheat className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold font-display">AgroExport India</span>
+                <span className="text-xl font-bold font-display">Arihant Enterprises</span>
                 <p className="text-xs text-slate-400 leading-none mt-0.5">Premium Crop Marketplace</p>
               </div>
             </Link>
@@ -53,15 +53,15 @@ export function Footer() {
             <div className="space-y-2.5">
               <div className="flex items-start gap-3 text-sm text-slate-400">
                 <MapPin className="w-4 h-4 mt-0.5 text-primary-500 flex-shrink-0" />
-                <span>Pune — 411019, Maharashtra, India</span>
+                <span>Ward No. 7, Gandharvpuri, Dewas, Madhya Pradesh - 455118, India</span>
               </div>
               <a href="tel:+917999837117" className="flex items-center gap-3 text-sm text-slate-400 hover:text-primary-400 transition-colors">
                 <Phone className="w-4 h-4 text-primary-500 flex-shrink-0" />
                 +91 79998 37117
               </a>
-              <a href="mailto:export@agroexport.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-primary-400 transition-colors">
+              <a href="mailto:arihant.entt108@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-primary-400 transition-colors">
                 <Mail className="w-4 h-4 text-primary-500 flex-shrink-0" />
-                export@agroexport.com
+                arihant.entt108@gmail.com
               </a>
             </div>
           </div>
@@ -111,7 +111,7 @@ export function Footer() {
       {/* Bottom */}
       <div className="border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-slate-500">© 2025 AgroExport India. All rights reserved.</p>
+          <p className="text-sm text-slate-500">© 2025 Arihant Enterprises. All rights reserved.</p>
           <a href="/admin" className="text-sm text-slate-600 hover:text-slate-400 transition-colors">Admin</a>
         </div>
       </div>

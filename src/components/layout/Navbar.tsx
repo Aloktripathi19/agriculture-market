@@ -58,8 +58,8 @@ export function Navbar() {
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'glass shadow-lg shadow-black/5 border-b border-white/20'
-            : 'bg-transparent'
+            ? 'bg-white shadow-lg shadow-black/5 border-b border-slate-100'
+            : 'bg-white border-b border-slate-100'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +71,7 @@ export function Navbar() {
               </div>
               <div>
                 <span className="text-lg font-bold font-display text-slate-900">
-                  Agro<span className="text-gradient">Export</span>
+                  Arihant<span className="text-gradient"> Enterprises</span>
                 </span>
                 <p className="text-[10px] text-slate-500 leading-none -mt-0.5 hidden sm:block">India&apos;s Crop Marketplace</p>
               </div>
@@ -187,7 +187,7 @@ export function Navbar() {
                   <div className="w-8 h-8 rounded-lg gradient-green flex items-center justify-center">
                     <Wheat className="w-4 h-4 text-white" />
                   </div>
-                  <span className="font-bold font-display text-slate-900">AgroExport</span>
+                  <span className="font-bold font-display text-slate-900">Arihant Enterprises</span>
                 </Link>
                 <button onClick={() => setIsOpen(false)} className="p-2 rounded-lg hover:bg-slate-100">
                   <X className="w-5 h-5" />

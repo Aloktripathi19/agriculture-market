@@ -6,14 +6,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { AdminLayout } from '@/components/admin/AdminLayout';
-import type { Product, ProductCategory, ProductStatus } from '@/types';
+import type { Product, ProductStatus } from '@/types';
 import { productService } from '@/lib/services/productService';
 import { formatPrice, STATUS_LABELS, STATUS_COLORS, formatDate, generateId, slugify } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 const schema = z.object({
   name: z.string().min(2),
-  category: z.enum(['fruits', 'vegetables', 'grains', 'pulses', 'spices', 'organic', 'export-quality']),
   shortDescription: z.string().min(10),
   description: z.string().min(20),
   price: z.number().min(1),
@@ -39,14 +38,14 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(schema),
     defaultValues: product ? {
-      name: product.name, category: product.category, shortDescription: product.shortDescription,
+      name: product.name, shortDescription: product.shortDescription,
       description: product.description, price: product.price, priceUnit: product.priceUnit,
       minOrderQty: product.minOrderQty, minOrderUnit: product.minOrderUnit, thumbnail: product.thumbnail,
       status: product.status, isExportQuality: product.isExportQuality, isOrganic: product.isOrganic,
       isFeatured: product.isFeatured, origin: product.origin, farmingMethod: product.farmingMethod,
       packagingDetails: product.packagingDetails, harvestDate: product.harvestDate?.split('T')[0],
       availableUntil: product.availableUntil?.split('T')[0],
-    } : { status: 'available', isExportQuality: false, isOrganic: false, isFeatured: false, category: 'grains' },
+    } : { status: 'available', isExportQuality: false, isOrganic: false, isFeatured: false },
   });
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
@@ -85,15 +84,7 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
               <input {...register('name')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="e.g. Basmati Rice 1121" />
               {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
             </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Category *</label>
-              <select {...register('category')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white">
-                {['grains', 'pulses', 'spices', 'organic', 'export-quality', 'fruits', 'vegetables'].map((c) => (
-                  <option key={c} value={c} className="capitalize">{c.replace('-', ' ')}</option>
-                ))}
-              </select>
-            </div>
-            <div>
+            <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Status *</label>
               <select {...register('status')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white">
                 <option value="available">Available</option>
@@ -186,7 +177,7 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     const q = search.toLowerCase();
-    setFiltered(products.filter((p) => p.name.toLowerCase().includes(q) || p.category.includes(q) || p.origin.toLowerCase().includes(q)));
+    setFiltered(products.filter((p) => p.name.toLowerCase().includes(q) || p.origin.toLowerCase().includes(q)));
   }, [search, products]);
 
   const handleDelete = async (id: string) => {
@@ -226,7 +217,7 @@ export default function AdminProductsPage() {
             <table className="w-full">
               <thead className="bg-slate-50">
                 <tr>
-                  {['Crop', 'Category', 'Price', 'Status', 'Quality', 'Updated', 'Actions'].map((h) => (
+                  {['Crop', 'Price', 'Status', 'Quality', 'Updated', 'Actions'].map((h) => (
                     <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
@@ -250,7 +241,6 @@ export default function AdminProductsPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3"><span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded-lg capitalize">{p.category}</span></td>
                     <td className="px-4 py-3 text-sm font-medium text-slate-900 whitespace-nowrap">{formatPrice(p.price)} <span className="text-xs text-slate-400">{p.priceUnit}</span></td>
                     <td className="px-4 py-3"><span className={`px-2 py-1 text-xs font-medium rounded-lg border ${STATUS_COLORS[p.status]}`}>{STATUS_LABELS[p.status]}</span></td>
                     <td className="px-4 py-3">
@@ -274,7 +264,7 @@ export default function AdminProductsPage() {
                   </tr>
                 ))}
                 {!isLoading && filtered.length === 0 && (
-                  <tr><td colSpan={7} className="px-4 py-10 text-center text-slate-400">No crops found</td></tr>
+                  <tr><td colSpan={6} className="px-4 py-10 text-center text-slate-400">No crops found</td></tr>
                 )}
               </tbody>
             </table>

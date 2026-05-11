@@ -4,8 +4,8 @@ import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: {
-    default: 'AgroExport India — Premium Crop Marketplace & Export Platform',
-    template: '%s | AgroExport India',
+    default: 'Arihant Enterprises — Premium Crop Marketplace & Export Platform',
+    template: '%s | Arihant Enterprises',
   },
   description:
     'India\'s leading agricultural crop marketplace for export-quality crops, grains, spices, pulses, and organic produce. Connect with verified exporters for bulk orders and international trade.',
@@ -13,12 +13,12 @@ export const metadata: Metadata = {
     'agriculture export India', 'crop marketplace', 'bulk crop orders', 'export quality crops',
     'Indian spices export', 'basmati rice export', 'organic crops India', 'pulses export',
   ],
-  authors: [{ name: 'AgroExport India' }],
+  authors: [{ name: 'Arihant Enterprises' }],
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    siteName: 'AgroExport India',
-    title: 'AgroExport India — Premium Crop Marketplace',
+    siteName: 'Arihant Enterprises',
+    title: 'Arihant Enterprises — Premium Crop Marketplace',
     description: 'India\'s premier agricultural crop marketplace for export and bulk trade.',
   },
   robots: { index: true, follow: true },

@@ -1,14 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, MessageCircle, Globe } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import { InquiryForm } from '@/components/marketplace/InquiryForm';
 
 const contactInfo = [
   { icon: Phone, label: 'Phone', value: '+91 79998 37117', href: 'tel:+917999837117', color: 'text-primary-600 bg-primary-50' },
-  { icon: MessageCircle, label: 'WhatsApp', value: '+91 98765 43210', href: 'https://wa.me/919876543210', color: 'text-emerald-600 bg-emerald-50' },
-  { icon: Mail, label: 'Email', value: 'export@agroexport.com', href: 'mailto:export@agroexport.com', color: 'text-blue-600 bg-blue-50' },
-  { icon: MapPin, label: 'Address', value: 'Plot 45, Agri Export Zone, MIDC, Pune 411019, Maharashtra', href: '#', color: 'text-rose-600 bg-rose-50' },
-  { icon: Globe, label: 'Website', value: 'www.agroexport.com', href: '#', color: 'text-purple-600 bg-purple-50' },
+  { icon: MessageCircle, label: 'WhatsApp', value: '+91 79998 37117', href: 'https://wa.me/917999837117', color: 'text-emerald-600 bg-emerald-50' },
+  { icon: Mail, label: 'Email', value: 'arihant.entt108@gmail.com', href: 'mailto:arihant.entt108@gmail.com', color: 'text-blue-600 bg-blue-50' },
+  { icon: MapPin, label: 'Address', value: 'Ward No. 7, Gandharvpuri, Post Gandharvpuri, Dewas, Madhya Pradesh - 455118, India', href: '#', color: 'text-rose-600 bg-rose-50' },
 ];
 
 export function ContactPageContent() {
@@ -53,7 +52,7 @@ export function ContactPageContent() {
 
             {/* WhatsApp CTA */}
             <motion.a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/917999837117"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 10 }}
@@ -83,8 +82,8 @@ export function ContactPageContent() {
         <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 h-64 bg-gradient-to-br from-primary-50 to-emerald-50 flex items-center justify-center">
           <div className="text-center">
             <MapPin className="w-10 h-10 text-primary-400 mx-auto mb-3" />
-            <p className="font-semibold text-slate-700">Plot No. 45, Agri Export Zone</p>
-            <p className="text-sm text-slate-500">MIDC Industrial Area, Pune — 411019, Maharashtra, India</p>
+            <p className="font-semibold text-slate-700">Arihant Enterprises</p>
+            <p className="text-sm text-slate-500">Ward No. 7, Gandharvpuri, Dewas, Madhya Pradesh - 455118</p>
           </div>
         </div>
       </div>

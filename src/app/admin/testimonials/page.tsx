@@ -14,7 +14,7 @@ function TestimonialModal({ item, onClose, onSave }: { item: Testimonial | null;
     name: item?.name || '',
     company: item?.company || '',
     country: item?.country || '',
-    avatar: item?.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
+    avatar: item?.avatar || '',
     rating: item?.rating || 5,
     review: item?.review || '',
     isActive: item?.isActive ?? true,
@@ -43,7 +43,7 @@ function TestimonialModal({ item, onClose, onSave }: { item: Testimonial | null;
         <div className="p-5 space-y-4 max-h-[70vh] overflow-y-auto">
           {[
             { label: 'Name', key: 'name' }, { label: 'Company', key: 'company' },
-            { label: 'Country', key: 'country' }, { label: 'Avatar URL', key: 'avatar' },
+            { label: 'Country', key: 'country' },
           ].map(({ label, key }) => (
             <div key={key}>
               <label className="block text-xs font-semibold text-slate-700 mb-1">{label}</label>
@@ -114,7 +114,9 @@ export default function AdminTestimonialsPage() {
               className="bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-card transition-all"
             >
               <div className="flex items-start gap-3 mb-3">
-                <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                <div className="w-10 h-10 rounded-full gradient-green flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-sm">{t.name.charAt(0).toUpperCase()}</span>
+                </div>
                 <div className="flex-1">
                   <p className="font-semibold text-slate-900 text-sm">{t.name}</p>
                   <p className="text-xs text-slate-500">{t.company} • {t.country}</p>

@@ -1,5 +1,5 @@
 const AUTH_KEY = 'agro_admin_auth';
-const ADMIN_CREDENTIALS = { email: 'admin@agroexport.com', password: 'Admin@123' };
+const ADMIN_CREDENTIALS = { email: 'arihant.entt108@gmail.com', password: 'Rishabh@0719' };
 
 export interface AuthSession {
   id: string;

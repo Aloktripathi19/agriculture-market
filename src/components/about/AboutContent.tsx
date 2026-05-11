@@ -29,7 +29,7 @@ export function AboutContent() {
               Est. 2010 — 15 Years of Excellence
             </span>
             <h1 className="text-4xl lg:text-5xl font-bold font-display text-white mb-4">
-              India&apos;s Most Trusted<br />Crop Export Platform
+              Arihant Enterprises<br />Crop Export Platform
             </h1>
             <p className="text-primary-100/80 max-w-2xl mx-auto text-lg">
               We bridge the gap between India&apos;s finest farms and global buyers — bringing you certified,
@@ -49,7 +49,7 @@ export function AboutContent() {
                 Connecting India&apos;s Agricultural Heritage to the World
               </h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Founded in 2010, AgroExport India was established with a singular vision: to create a transparent,
+                Founded in 2010, Arihant Enterprises was established with a singular vision: to create a transparent,
                 quality-assured pathway for India&apos;s exceptional agricultural crops to reach global markets.
               </p>
               <p className="text-slate-600 leading-relaxed mb-6">
