@@ -104,6 +104,17 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-8">
+              <h4 className="font-semibold text-white mb-4 font-display">Certifications</h4>
+              <div className="flex flex-wrap gap-2">
+                {['Udyam', 'Import Export', 'APEDA', 'GST'].map((cert) => (
+                  <span key={cert} className="px-2.5 py-1 bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded-lg">
+                    {cert}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

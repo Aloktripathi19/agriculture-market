@@ -98,6 +98,12 @@ export default function ProductDetailPage() {
                     src={product.images[activeImage]}
                     alt={product.name}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      if (!e.currentTarget.dataset.fb) {
+                        e.currentTarget.dataset.fb = '1';
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80';
+                      }
+                    }}
                   />
                 </div>
                 {product.images.length > 1 && (
@@ -110,7 +116,9 @@ export default function ProductDetailPage() {
                           activeImage === i ? 'border-primary-500' : 'border-transparent'
                         }`}
                       >
-                        <img src={img} alt="" className="w-full h-full object-cover" />
+                        <img src={img} alt="" className="w-full h-full object-cover"
+                          onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=80'; } }}
+                        />
                       </button>
                     ))}
                   </div>

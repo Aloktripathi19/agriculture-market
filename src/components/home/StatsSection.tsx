@@ -8,7 +8,7 @@ const stats = [
   { icon: Layers, value: 7, suffix: '', label: 'Crop Categories', color: 'text-blue-600', bg: 'bg-blue-50' },
   { icon: Award, value: 12, suffix: '+', label: 'Quality Certifications', color: 'text-amber-600', bg: 'bg-amber-50' },
   { icon: Leaf, value: 30, suffix: '%', label: 'Organic Certified Crops', color: 'text-teal-600', bg: 'bg-teal-50' },
-  { icon: Store, value: 50, suffix: '+', label: 'Partner Farms', color: 'text-purple-600', bg: 'bg-purple-50' },
+  { icon: Store, value: 4, suffix: '', label: 'Certifications Held', color: 'text-purple-600', bg: 'bg-purple-50' },
   { icon: CalendarDays, value: 365, suffix: '', label: 'Days Crop Supply', color: 'text-rose-600', bg: 'bg-rose-50' },
 ];
 

@@ -234,7 +234,9 @@ export default function AdminProductsPage() {
                   <tr key={p.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <img src={p.thumbnail} alt={p.name} className="w-10 h-10 rounded-lg object-cover flex-shrink-0" />
+                        <img src={p.thumbnail} alt={p.name} className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
+                          onError={(e) => { if (!e.currentTarget.dataset.fb) { e.currentTarget.dataset.fb = '1'; e.currentTarget.src = 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=100&q=80'; } }}
+                        />
                         <div>
                           <p className="text-sm font-medium text-slate-900 line-clamp-1">{p.name}</p>
                           <p className="text-xs text-slate-400">{p.origin}</p>

@@ -57,8 +57,8 @@ const benefits = [
 const trust = [
   { value: '100%', label: 'Pre-Shipment Tested' },
   { value: '24hr', label: 'Query Response Time' },
-  { value: '50+', label: 'Partner Farms' },
-  { value: '12+', label: 'Certifications Held' },
+  { value: '4', label: 'Certifications Held' },
+  { value: '365', label: 'Days Crop Supply' },
 ];
 
 export function SeasonalHighlights() {

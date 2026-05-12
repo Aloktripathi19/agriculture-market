@@ -23,6 +23,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
+          onError={(e) => {
+            if (!e.currentTarget.dataset.fb) {
+              e.currentTarget.dataset.fb = '1';
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=80';
+            }
+          }}
         />
 
         {/* Badges */}
