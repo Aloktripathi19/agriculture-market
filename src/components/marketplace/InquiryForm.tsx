@@ -14,7 +14,6 @@ const schema = z.object({
   company: z.string().default(''),
   country: z.string().min(2, 'Country required'),
   type: z.enum(['bulk-order', 'product-info', 'export', 'partnership', 'general']),
-  quantity: z.string().default(''),
   message: z.string().min(1, 'Please describe your requirements'),
 });
 
@@ -38,13 +37,21 @@ export function InquiryForm({ productId, productName }: Props) {
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
-      await inquiryService.create({
+      const inquiry = await inquiryService.create({
         ...data,
         company: data.company || '',
-        quantity: data.quantity || '',
+        quantity: '',
         productId,
         productName,
       });
+
+      // Send email notification (best-effort — don't block on failure)
+      fetch('/api/send-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...inquiry, productName }),
+      }).catch(() => {});
+
       toast.success('Inquiry submitted! Our team will contact you within 24 hours.');
       reset();
     } catch {
@@ -130,15 +137,6 @@ export function InquiryForm({ productId, productName }: Props) {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1.5">Quantity / Volume Required</label>
-          <input
-            {...register('quantity')}
-            className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="e.g., 500 kg, 10 MT, 1 container..."
-          />
-        </div>
-
-        <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1.5">Message / Requirements *</label>
           <textarea
             {...register('message')}
@@ -165,7 +163,7 @@ export function InquiryForm({ productId, productName }: Props) {
 
       <div className="mt-5 pt-5 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
         <a
-          href="https://wa.me/917999837117"
+          href="https://wa.me/917999837117?text=Hi%2C%20I%27m%20interested%20in%20sourcing%20crops%20from%20Arihant%20Enterprises.%20Please%20share%20details."
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 text-sm font-medium hover:bg-emerald-100 transition-colors border border-emerald-200"

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Shield, Globe, Users, Award, Leaf, TrendingUp, ArrowRight, Check } from 'lucide-react';
-import { certifications, exportCountries } from '@/lib/data/mockData';
+import { certifications } from '@/lib/data/mockData';
 
 const values = [
   { icon: Shield, title: 'Quality First', desc: 'Every crop undergoes rigorous quality testing before export', color: 'bg-primary-50 text-primary-600' },
@@ -11,12 +11,6 @@ const values = [
   { icon: Users, title: 'Farmer Partnership', desc: 'Direct partnerships with verified farmers and cooperatives', color: 'bg-amber-50 text-amber-600' },
 ];
 
-const team = [
-  { name: 'Rajesh Kumar', role: 'Founder & CEO', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80', exp: '20+ years in agri-export' },
-  { name: 'Priya Sharma', role: 'Quality Director', img: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&q=80', exp: 'ISO & GlobalGAP specialist' },
-  { name: 'Amit Patel', role: 'Export Manager', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80', exp: '15+ years in international trade' },
-  { name: 'Sunita Reddy', role: 'Procurement Head', img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80', exp: 'Direct farm relationship management' },
-];
 
 export function AboutContent() {
   return (
@@ -108,24 +102,21 @@ export function AboutContent() {
         </div>
       </section>
 
-      {/* Team */}
+      {/* Co-Founder */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-display text-slate-900">Meet Our Team</h2>
-            <p className="text-slate-500 mt-3">The experts behind India&apos;s premier crop export platform</p>
+            <h2 className="text-3xl font-bold font-display text-slate-900">Leadership</h2>
+            <p className="text-slate-500 mt-3">The vision behind Arihant Enterprises</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map((member, i) => (
-              <motion.div key={member.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 hover:shadow-card transition-all"
-              >
-                <img src={member.img} alt={member.name} className="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-4 border-white shadow-lg" />
-                <h3 className="font-bold text-slate-900 mb-1">{member.name}</h3>
-                <p className="text-primary-600 text-sm font-medium mb-2">{member.role}</p>
-                <p className="text-xs text-slate-500">{member.exp}</p>
-              </motion.div>
-            ))}
+          <div className="flex justify-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="bg-slate-50 rounded-2xl p-8 text-center border border-slate-100 hover:shadow-card transition-all max-w-xs w-full"
+            >
+              <img src="/co-founder.jpeg" alt="Co-Founder" className="w-28 h-28 rounded-full object-cover mx-auto mb-4 border-4 border-white shadow-lg" />
+              <p className="text-primary-600 text-sm font-semibold uppercase tracking-wide mb-1">Co-Founder</p>
+              <p className="text-sm text-slate-500">10+ Years in Agricultural Export</p>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -146,25 +137,6 @@ export function AboutContent() {
                   <p className="font-semibold text-slate-900 text-sm">{cert.name}</p>
                   <p className="text-xs text-slate-500 mt-0.5">{cert.description}</p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Export Countries */}
-      <section id="countries" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-display text-slate-900">Countries We Export To</h2>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {exportCountries.map((c, i) => (
-              <motion.div key={c.name} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
-                className="text-center p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-primary-200 transition-all"
-              >
-                <div className="text-3xl mb-1">{c.flag}</div>
-                <p className="text-xs font-semibold text-slate-800">{c.name}</p>
               </motion.div>
             ))}
           </div>

@@ -5,7 +5,7 @@ import { InquiryForm } from '@/components/marketplace/InquiryForm';
 
 const contactInfo = [
   { icon: Phone, label: 'Phone', value: '+91 79998 37117', href: 'tel:+917999837117', color: 'text-primary-600 bg-primary-50' },
-  { icon: MessageCircle, label: 'WhatsApp', value: '+91 79998 37117', href: 'https://wa.me/917999837117', color: 'text-emerald-600 bg-emerald-50' },
+  { icon: MessageCircle, label: 'WhatsApp', value: '+91 79998 37117', href: 'https://wa.me/917999837117?text=Hi%2C%20I%27m%20interested%20in%20sourcing%20crops%20from%20Arihant%20Enterprises.%20Please%20share%20details.', color: 'text-emerald-600 bg-emerald-50' },
   { icon: Mail, label: 'Email', value: 'arihant.entt108@gmail.com', href: 'mailto:arihant.entt108@gmail.com', color: 'text-blue-600 bg-blue-50' },
   { icon: MapPin, label: 'Address', value: 'Ward No. 7, Gandharvpuri, Post Gandharvpuri, Dewas, Madhya Pradesh - 455118, India', href: '#', color: 'text-rose-600 bg-rose-50' },
 ];
@@ -52,7 +52,7 @@ export function ContactPageContent() {
 
             {/* WhatsApp CTA */}
             <motion.a
-              href="https://wa.me/917999837117"
+              href="https://wa.me/917999837117?text=Hi%2C%20I%27m%20interested%20in%20sourcing%20crops%20from%20Arihant%20Enterprises.%20Please%20share%20details."
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 10 }}

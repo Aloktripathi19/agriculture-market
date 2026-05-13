@@ -75,7 +75,6 @@ export function Footer() {
                 { label: 'Marketplace', href: '/marketplace' },
                 { label: 'About Us', href: '/about' },
                 { label: 'Blog', href: '/blog' },
-                { label: 'Gallery', href: '/gallery' },
                 { label: 'Contact Us', href: '/contact' },
               ].map((l) => (
                 <li key={l.href}>

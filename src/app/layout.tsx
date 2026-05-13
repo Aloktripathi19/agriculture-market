@@ -21,6 +21,10 @@ export const metadata: Metadata = {
     title: 'Arihant Enterprises — Premium Crop Marketplace',
     description: 'India\'s premier agricultural crop marketplace for export and bulk trade.',
   },
+  icons: {
+    icon: '/logo.jpeg',
+    apple: '/logo.jpeg',
+  },
   robots: { index: true, follow: true },
 };
 
