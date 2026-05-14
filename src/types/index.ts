@@ -100,7 +100,7 @@ export interface Testimonial {
   name: string;
   company: string;
   country: string;
-  avatar: string;
+  avatar?: string;
   rating: number;
   review: string;
   isActive: boolean;
@@ -140,11 +140,6 @@ export interface AdminUser {
   lastLogin: string;
 }
 
-export interface NewsletterSubscriber {
-  id: string;
-  email: string;
-  subscribedAt: string;
-}
 
 export interface DashboardStats {
   totalProducts: number;

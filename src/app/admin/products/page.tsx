@@ -16,6 +16,7 @@ const schema = z.object({
   shortDescription: z.string().min(10),
   description: z.string().min(20),
   price: z.number().min(1),
+  priceUnit: z.string().default('per kg'),
   thumbnail: z.string().url('Enter valid image URL'),
   status: z.enum(['available', 'limited', 'out-of-stock', 'pre-order']),
   isExportQuality: z.boolean(),
@@ -36,7 +37,7 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
     resolver: zodResolver(schema),
     defaultValues: product ? {
       name: product.name, shortDescription: product.shortDescription,
-      description: product.description, price: product.price, thumbnail: product.thumbnail,
+      description: product.description, price: product.price, priceUnit: product.priceUnit || 'per kg', thumbnail: product.thumbnail,
       status: product.status, isExportQuality: product.isExportQuality, isOrganic: product.isOrganic,
       isFeatured: product.isFeatured, origin: product.origin, farmingMethod: product.farmingMethod,
       packagingDetails: product.packagingDetails, harvestDate: product.harvestDate?.split('T')[0],
@@ -89,9 +90,12 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
                 <option value="pre-order">Pre-Order</option>
               </select>
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Price *</label>
-              <input {...register('price', { valueAsNumber: true })} type="number" className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
+              <div className="flex gap-2">
+                <input {...register('price', { valueAsNumber: true })} type="number" placeholder="e.g. 500" className="flex-1 px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                <input {...register('priceUnit')} placeholder="per kg, per MT..." className="w-32 px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
+              </div>
             </div>
             <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Thumbnail URL *</label>
@@ -227,7 +231,7 @@ export default function AdminProductsPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm font-medium text-slate-900 whitespace-nowrap">{formatPrice(p.price)}</td>
+                    <td className="px-4 py-3 text-sm font-medium text-slate-900 whitespace-nowrap">{formatPrice(p.price)} <span className="text-xs text-slate-400">{p.priceUnit}</span></td>
                     <td className="px-4 py-3"><span className={`px-2 py-1 text-xs font-medium rounded-lg border ${STATUS_COLORS[p.status]}`}>{STATUS_LABELS[p.status]}</span></td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">

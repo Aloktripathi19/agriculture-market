@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, X, ChevronDown } from 'lucide-react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import type { FAQ } from '@/types';
-import { getDB } from '@/lib/db/indexeddb';
+import { faqService } from '@/lib/services/faqService';
 import { generateId } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
@@ -19,13 +19,13 @@ function FAQModal({ faq, onClose, onSave }: { faq: FAQ | null; onClose: () => vo
   });
 
   const handleSave = async () => {
-    const db = await getDB();
     const data: FAQ = {
       id: faq?.id || generateId('faq'),
       createdAt: faq?.createdAt || new Date().toISOString(),
       ...form,
     };
-    await db.put('faqs', data);
+    if (isEdit) await faqService.update(data);
+    else await faqService.create(data);
     onSave();
     toast.success(isEdit ? 'FAQ updated' : 'FAQ added');
   };
@@ -81,16 +81,14 @@ export default function AdminFAQsPage() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   const load = async () => {
-    const db = await getDB();
-    const all = await db.getAll('faqs');
-    setFaqs(all.sort((a, b) => a.sortOrder - b.sortOrder));
+    const all = await faqService.getAll();
+    setFaqs(all);
   };
   useEffect(() => { load(); }, []);
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this FAQ?')) return;
-    const db = await getDB();
-    await db.delete('faqs', id);
+    await faqService.delete(id);
     load();
     toast.success('FAQ deleted');
   };

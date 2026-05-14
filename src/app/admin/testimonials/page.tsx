@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Edit, Trash2, X, Star } from 'lucide-react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import type { Testimonial } from '@/types';
-import { getDB } from '@/lib/db/indexeddb';
+import { testimonialService } from '@/lib/services/testimonialService';
 import { generateId, formatDate } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
@@ -14,7 +14,6 @@ function TestimonialModal({ item, onClose, onSave }: { item: Testimonial | null;
     name: item?.name || '',
     company: item?.company || '',
     country: item?.country || '',
-    avatar: item?.avatar || '',
     rating: item?.rating || 5,
     review: item?.review || '',
     isActive: item?.isActive ?? true,
@@ -22,13 +21,13 @@ function TestimonialModal({ item, onClose, onSave }: { item: Testimonial | null;
   });
 
   const handleSave = async () => {
-    const db = await getDB();
     const data: Testimonial = {
       id: item?.id || generateId('test'),
       createdAt: item?.createdAt || new Date().toISOString(),
       ...form,
     };
-    await db.put('testimonials', data);
+    if (isEdit) await testimonialService.update(data);
+    else await testimonialService.create(data);
     onSave();
     toast.success(isEdit ? 'Updated' : 'Added');
   };
@@ -84,16 +83,14 @@ export default function AdminTestimonialsPage() {
   const [editItem, setEditItem] = useState<Testimonial | null>(null);
 
   const load = async () => {
-    const db = await getDB();
-    const all = await db.getAll('testimonials');
-    setItems(all.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+    const all = await testimonialService.getAll();
+    setItems(all);
   };
   useEffect(() => { load(); }, []);
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this testimonial?')) return;
-    const db = await getDB();
-    await db.delete('testimonials', id);
+    await testimonialService.delete(id);
     load();
     toast.success('Deleted');
   };
@@ -136,6 +133,7 @@ export default function AdminTestimonialsPage() {
               </div>
             </motion.div>
           ))}
+          {items.length === 0 && <div className="col-span-3 text-center py-12 text-slate-400">No testimonials yet</div>}
         </div>
       </div>
 

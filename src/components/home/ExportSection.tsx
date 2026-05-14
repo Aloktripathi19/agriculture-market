@@ -1,7 +1,28 @@
 'use client';
 import { motion } from 'framer-motion';
-import { exportCountries, certifications } from '@/lib/data/mockData';
 import { Shield, CheckCircle } from 'lucide-react';
+
+const exportCountries = [
+  { name: 'United Arab Emirates', flag: '🇦🇪', exports: 'Basmati Rice, Soybean, Spices' },
+  { name: 'United Kingdom', flag: '🇬🇧', exports: 'Organic Spices, Pulses, Wheat' },
+  { name: 'United States', flag: '🇺🇸', exports: 'Organic Crops, Spices, Basmati' },
+  { name: 'Germany', flag: '🇩🇪', exports: 'Organic Turmeric, Black Pepper, Cardamom' },
+  { name: 'Japan', flag: '🇯🇵', exports: 'Saffron, Premium Spices, Organic Crops' },
+  { name: 'Australia', flag: '🇦🇺', exports: 'Spices, Pulses, Organic Crops' },
+  { name: 'Canada', flag: '🇨🇦', exports: 'Basmati Rice, Pulses, Spices' },
+  { name: 'Netherlands', flag: '🇳🇱', exports: 'Spices, Pulses, Oilseeds' },
+  { name: 'Saudi Arabia', flag: '🇸🇦', exports: 'Basmati Rice, Wheat, Cardamom' },
+  { name: 'Singapore', flag: '🇸🇬', exports: 'Premium Spices, Pulses' },
+  { name: 'France', flag: '🇫🇷', exports: 'Saffron, Exotic Spices, Organic Crops' },
+  { name: 'New Zealand', flag: '🇳🇿', exports: 'Organic Crops, Oilseeds' },
+];
+
+const certifications = [
+  { name: 'Udyam Certificate', icon: '🏭', description: 'Ministry of MSME — Udyam Registration for small and medium enterprises' },
+  { name: 'Import Export Certificate', icon: '🌍', description: 'IEC issued by DGFT — authorizes international import and export trade' },
+  { name: 'APEDA Certificate', icon: '🏛️', description: 'Agricultural & Processed Food Products Export Development Authority' },
+  { name: 'GST Certificate', icon: '📋', description: 'Goods and Services Tax registration — Government of India' },
+];
 
 export function ExportSection() {
   return (

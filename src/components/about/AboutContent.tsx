@@ -2,7 +2,12 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Shield, Globe, Users, Award, Leaf, TrendingUp, ArrowRight, Check } from 'lucide-react';
-import { certifications } from '@/lib/data/mockData';
+const certifications = [
+  { name: 'Udyam Certificate', icon: '🏭', description: 'Ministry of MSME — Udyam Registration for small and medium enterprises' },
+  { name: 'Import Export Certificate', icon: '🌍', description: 'IEC issued by DGFT — authorizes international import and export trade' },
+  { name: 'APEDA Certificate', icon: '🏛️', description: 'Agricultural & Processed Food Products Export Development Authority' },
+  { name: 'GST Certificate', icon: '📋', description: 'Goods and Services Tax registration — Government of India' },
+];
 
 const values = [
   { icon: Shield, title: 'Quality First', desc: 'Every crop undergoes rigorous quality testing before export', color: 'bg-primary-50 text-primary-600' },
