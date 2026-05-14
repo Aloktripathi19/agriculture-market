@@ -111,7 +111,7 @@ export function HeroSection() {
               {/* Main image */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full aspect-square max-w-md mx-auto">
                 <img
-                  src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80"
+                  src="/rice_img.jpg"
                   alt="Premium crops"
                   className="w-full h-full object-cover"
                 />
@@ -126,7 +126,7 @@ export function HeroSection() {
               >
                 <div className="text-2xl mb-1">🌾</div>
                 <p className="text-xs text-slate-600 font-semibold">Basmati Rice</p>
-                <p className="text-xs text-primary-600 font-medium mt-0.5">APEDA Certified • GI Tagged</p>
+                <p className="text-xs text-primary-600 font-medium mt-0.5">APEDA Certified • Udyam</p>
                 <div className="mt-2 flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <span key={i} className="text-amber-400 text-xs">★</span>
