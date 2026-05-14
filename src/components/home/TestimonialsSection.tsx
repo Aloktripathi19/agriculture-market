@@ -2,16 +2,14 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import type { Testimonial } from '@/types';
-import { getDB } from '@/lib/db/indexeddb';
+import { testimonialService } from '@/lib/services/testimonialService';
 import { Star, Quote } from 'lucide-react';
 
 export function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
   useEffect(() => {
-    getDB().then((db) => db.getAll('testimonials')).then((data) =>
-      setTestimonials(data.filter((t) => t.isActive))
-    );
+    testimonialService.getFeatured().then(setTestimonials);
   }, []);
 
   return (

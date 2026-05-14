@@ -73,7 +73,6 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xl font-bold text-primary-600">{formatPrice(product.price)}</p>
-            <p className="text-xs text-slate-400">{product.priceUnit}</p>
           </div>
           <Link
             href={`/marketplace/${product.slug}`}

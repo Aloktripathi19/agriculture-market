@@ -1,5 +1,5 @@
 import type { Inquiry } from '@/types';
-import { getDB } from '@/lib/db/indexeddb';
+import { supabase } from '@/lib/db/supabase';
 
 function generateId() {
   return `inq-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -7,44 +7,39 @@ function generateId() {
 
 export const inquiryService = {
   async getAll(): Promise<Inquiry[]> {
-    const db = await getDB();
-    const all = await db.getAll('inquiries');
-    return all.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const { data } = await supabase.from('inquiries').select('data').order('updated_at', { ascending: false });
+    return (data ?? []).map((r) => r.data as Inquiry);
   },
 
   async getById(id: string): Promise<Inquiry | undefined> {
-    const db = await getDB();
-    return db.get('inquiries', id);
+    const { data } = await supabase.from('inquiries').select('data').eq('id', id).single();
+    return data ? (data.data as Inquiry) : undefined;
   },
 
-  async create(data: Omit<Inquiry, 'id' | 'status' | 'notes' | 'createdAt' | 'updatedAt'>): Promise<Inquiry> {
-    const db = await getDB();
+  async create(input: Omit<Inquiry, 'id' | 'status' | 'notes' | 'createdAt' | 'updatedAt'>): Promise<Inquiry> {
     const inquiry: Inquiry = {
-      ...data,
+      ...input,
       id: generateId(),
       status: 'new',
       notes: '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    await db.put('inquiries', inquiry);
+    await supabase.from('inquiries').insert({ id: inquiry.id, data: inquiry, updated_at: inquiry.updatedAt });
     return inquiry;
   },
 
   async update(inquiry: Inquiry): Promise<void> {
-    const db = await getDB();
     inquiry.updatedAt = new Date().toISOString();
-    await db.put('inquiries', inquiry);
+    await supabase.from('inquiries').update({ data: inquiry, updated_at: inquiry.updatedAt }).eq('id', inquiry.id);
   },
 
   async delete(id: string): Promise<void> {
-    const db = await getDB();
-    await db.delete('inquiries', id);
+    await supabase.from('inquiries').delete().eq('id', id);
   },
 
   async getNewCount(): Promise<number> {
-    const db = await getDB();
-    const all = await db.getAllFromIndex('inquiries', 'by_status', 'new');
-    return all.length;
+    const all = await this.getAll();
+    return all.filter((i) => i.status === 'new').length;
   },
 };

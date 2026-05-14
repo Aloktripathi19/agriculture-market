@@ -16,9 +16,6 @@ const schema = z.object({
   shortDescription: z.string().min(10),
   description: z.string().min(20),
   price: z.number().min(1),
-  priceUnit: z.string().min(2),
-  minOrderQty: z.number().min(1),
-  minOrderUnit: z.string().min(1),
   thumbnail: z.string().url('Enter valid image URL'),
   status: z.enum(['available', 'limited', 'out-of-stock', 'pre-order']),
   isExportQuality: z.boolean(),
@@ -39,8 +36,7 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
     resolver: zodResolver(schema),
     defaultValues: product ? {
       name: product.name, shortDescription: product.shortDescription,
-      description: product.description, price: product.price, priceUnit: product.priceUnit,
-      minOrderQty: product.minOrderQty, minOrderUnit: product.minOrderUnit, thumbnail: product.thumbnail,
+      description: product.description, price: product.price, thumbnail: product.thumbnail,
       status: product.status, isExportQuality: product.isExportQuality, isOrganic: product.isOrganic,
       isFeatured: product.isFeatured, origin: product.origin, farmingMethod: product.farmingMethod,
       packagingDetails: product.packagingDetails, harvestDate: product.harvestDate?.split('T')[0],
@@ -96,18 +92,6 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Price *</label>
               <input {...register('price', { valueAsNumber: true })} type="number" className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Price Unit *</label>
-              <input {...register('priceUnit')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="per kg, per dozen..." />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Min. Order Qty *</label>
-              <input {...register('minOrderQty', { valueAsNumber: true })} type="number" className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Min. Order Unit *</label>
-              <input {...register('minOrderUnit')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="kg, MT, dozens..." />
             </div>
             <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Thumbnail URL *</label>
@@ -243,7 +227,7 @@ export default function AdminProductsPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm font-medium text-slate-900 whitespace-nowrap">{formatPrice(p.price)} <span className="text-xs text-slate-400">{p.priceUnit}</span></td>
+                    <td className="px-4 py-3 text-sm font-medium text-slate-900 whitespace-nowrap">{formatPrice(p.price)}</td>
                     <td className="px-4 py-3"><span className={`px-2 py-1 text-xs font-medium rounded-lg border ${STATUS_COLORS[p.status]}`}>{STATUS_LABELS[p.status]}</span></td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">

@@ -20,9 +20,9 @@ export interface Product {
   description: string;
   shortDescription: string;
   price: number;
-  priceUnit: string;
-  minOrderQty: number;
-  minOrderUnit: string;
+  priceUnit?: string;
+  minOrderQty?: number;
+  minOrderUnit?: string;
   images: string[];
   thumbnail: string;
   status: ProductStatus;

@@ -164,11 +164,6 @@ export default function ProductDetailPage() {
                 <div className="flex items-end gap-4 mb-6">
                   <div>
                     <p className="text-3xl font-bold text-primary-600">{formatPrice(product.price)}</p>
-                    <p className="text-sm text-slate-500">{product.priceUnit}</p>
-                  </div>
-                  <div className="text-sm text-slate-500">
-                    <Package className="w-4 h-4 inline mr-1" />
-                    Min. order: <strong>{product.minOrderQty} {product.minOrderUnit}</strong>
                   </div>
                 </div>
 

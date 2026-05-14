@@ -1,5 +1,5 @@
 import type { BlogPost } from '@/types';
-import { getDB } from '@/lib/db/indexeddb';
+import { supabase } from '@/lib/db/supabase';
 
 function generateId() {
   return `blog-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -7,9 +7,8 @@ function generateId() {
 
 export const blogService = {
   async getAll(): Promise<BlogPost[]> {
-    const db = await getDB();
-    const all = await db.getAll('blog_posts');
-    return all.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const { data } = await supabase.from('blog_posts').select('data').order('updated_at', { ascending: false });
+    return (data ?? []).map((r) => r.data as BlogPost);
   },
 
   async getPublished(): Promise<BlogPost[]> {
@@ -23,30 +22,27 @@ export const blogService = {
   },
 
   async getBySlug(slug: string): Promise<BlogPost | undefined> {
-    const db = await getDB();
-    return db.getFromIndex('blog_posts', 'by_slug', slug);
+    const all = await this.getAll();
+    return all.find((b) => b.slug === slug);
   },
 
-  async create(data: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>): Promise<BlogPost> {
-    const db = await getDB();
+  async create(input: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>): Promise<BlogPost> {
     const post: BlogPost = {
-      ...data,
+      ...input,
       id: generateId(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    await db.put('blog_posts', post);
+    await supabase.from('blog_posts').insert({ id: post.id, data: post, updated_at: post.updatedAt });
     return post;
   },
 
   async update(post: BlogPost): Promise<void> {
-    const db = await getDB();
     post.updatedAt = new Date().toISOString();
-    await db.put('blog_posts', post);
+    await supabase.from('blog_posts').update({ data: post, updated_at: post.updatedAt }).eq('id', post.id);
   },
 
   async delete(id: string): Promise<void> {
-    const db = await getDB();
-    await db.delete('blog_posts', id);
+    await supabase.from('blog_posts').delete().eq('id', id);
   },
 };

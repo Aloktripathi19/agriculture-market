@@ -3,16 +3,14 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import type { FAQ } from '@/types';
-import { getDB } from '@/lib/db/indexeddb';
+import { faqService } from '@/lib/services/faqService';
 
 export function FAQSection() {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [open, setOpen] = useState<string | null>(null);
 
   useEffect(() => {
-    getDB().then((db) => db.getAll('faqs')).then((data) =>
-      setFaqs(data.filter((f) => f.isActive).sort((a, b) => a.sortOrder - b.sortOrder))
-    );
+    faqService.getActive().then(setFaqs);
   }, []);
 
   return (
