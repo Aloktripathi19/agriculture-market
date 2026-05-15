@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
               <Wheat className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-2xl font-bold font-display text-slate-900">Admin Portal</h1>
-            <p className="text-slate-500 text-sm mt-1">AgroExport India — Platform Management</p>
+            <p className="text-slate-500 text-sm mt-1">Arihant Enterprises — Platform Management</p>
           </div>
 
           <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl mb-6">

@@ -4,10 +4,10 @@ import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import { InquiryForm } from '@/components/marketplace/InquiryForm';
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '+91 79998 37117', href: 'tel:+917999837117', color: 'text-primary-600 bg-primary-50' },
-  { icon: MessageCircle, label: 'WhatsApp', value: '+91 79998 37117', href: 'https://wa.me/917999837117?text=Hi%2C%20I%27m%20interested%20in%20sourcing%20crops%20from%20Arihant%20Enterprises.%20Please%20share%20details.', color: 'text-emerald-600 bg-emerald-50' },
-  { icon: Mail, label: 'Email', value: 'arihant.entt108@gmail.com', href: 'mailto:arihant.entt108@gmail.com', color: 'text-blue-600 bg-blue-50' },
-  { icon: MapPin, label: 'Address', value: 'Ward No. 7, Gandharvpuri, Post Gandharvpuri, Dewas, Madhya Pradesh - 455118, India', href: '#', color: 'text-rose-600 bg-rose-50' },
+  { icon: Phone, label: 'Phone', value: '+91 79998 37117', href: 'tel:+917999837117', color: 'text-primary-600 bg-primary-50', target: '_self' },
+  { icon: MessageCircle, label: 'WhatsApp', value: '+91 79998 37117', href: 'https://wa.me/917999837117?text=Hi%2C%20I%27m%20interested%20in%20sourcing%20crops%20from%20Arihant%20Enterprises.%20Please%20share%20details.', color: 'text-emerald-600 bg-emerald-50', target: '_blank' },
+  { icon: Mail, label: 'Email', value: 'arihant.entt108@gmail.com', href: 'https://mail.google.com/mail/?view=cm&to=arihant.entt108@gmail.com', color: 'text-blue-600 bg-blue-50', target: '_blank' },
+  { icon: MapPin, label: 'Address', value: 'Ward No. 7, Gandharvpuri, Post Gandharvpuri, Dewas, Madhya Pradesh - 455118, India', href: '#', color: 'text-rose-600 bg-rose-50', target: '_self' },
 ];
 
 export function ContactPageContent() {
@@ -36,6 +36,8 @@ export function ContactPageContent() {
               <motion.a
                 key={info.label}
                 href={info.href}
+                target={info.target}
+                rel={info.target === '_blank' ? 'noopener noreferrer' : undefined}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="flex items-start gap-4 p-4 bg-white rounded-xl border border-slate-100 hover:border-primary-200 hover:shadow-sm transition-all group"
@@ -78,13 +80,18 @@ export function ContactPageContent() {
           </div>
         </div>
 
-        {/* Map placeholder */}
-        <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 h-64 bg-gradient-to-br from-primary-50 to-emerald-50 flex items-center justify-center">
-          <div className="text-center">
-            <MapPin className="w-10 h-10 text-primary-400 mx-auto mb-3" />
-            <p className="font-semibold text-slate-700">Arihant Enterprises</p>
-            <p className="text-sm text-slate-500">Ward No. 7, Gandharvpuri, Dewas, Madhya Pradesh - 455118</p>
-          </div>
+        {/* Google Maps embed */}
+        <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 h-80">
+          <iframe
+            title="Arihant Enterprises Location"
+            src="https://maps.google.com/maps?q=Ward+No.+7,+Gandharvpuri,+Dewas,+Madhya+Pradesh+455118,+India&output=embed&z=15"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold text-slate-900 mb-3">Data Storage</h2>
             <p className="text-slate-600 mb-4">This website stores data locally in your browser using IndexedDB. No data is transmitted to external servers except for inquiry emails sent to our admin team.</p>
             <h2 className="text-xl font-bold text-slate-900 mb-3">Contact</h2>
-            <p className="text-slate-600">For privacy concerns, contact us at privacy@agroexport.com</p>
+            <p className="text-slate-600">For privacy concerns, contact us at arihant.entt108@gmail.com</p>
           </div>
         </div>
       </main>

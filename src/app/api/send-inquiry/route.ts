@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     <div class="card">
       <div class="header">
         <h1>🌾 New Buyer Inquiry</h1>
-        <p>Arihant Enterprises — AgroExport India</p>
+        <p>Arihant Enterprises</p>
       </div>
       <div class="body">
         <span class="badge">${typeLabel}</span>
@@ -76,10 +76,10 @@ export async function POST(req: NextRequest) {
         </table>
         <p style="font-size:13px;color:#64748b;font-weight:500;margin-bottom:8px;">Message / Requirements:</p>
         <div class="message-box">${data.message.replace(/\n/g, '<br/>')}</div>
-        <a href="mailto:${data.email}?subject=Re: Your Inquiry — Arihant Enterprises" class="cta">Reply to ${data.name}</a>
+        <a href="mailto:${data.email}?subject=Re: Your Inquiry — Arihant Enterprises&body=Dear ${data.name},%0A%0AThank you for reaching out to Arihant Enterprises.%0A%0A" style="display:inline-block;margin-top:24px;padding:12px 26px;background:#f0fdf4;color:#15803d !important;border:1px solid #bbf7d0;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;">✉️&nbsp;Reply to ${data.name}</a>
       </div>
       <div class="footer">
-        Received via AgroExport India &nbsp;·&nbsp; Arihant Enterprises &nbsp;·&nbsp; +91 79998 37117
+        Arihant Enterprises &nbsp;·&nbsp; +91 79998 37117
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
 </html>`;
 
     await transporter.sendMail({
-      from: `"AgroExport Inquiries" <${process.env.GMAIL_USER}>`,
+      from: `"Arihant Enterprises" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER,
       replyTo: data.email,
       subject,

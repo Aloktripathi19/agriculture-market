@@ -29,7 +29,7 @@ export function FAQSection() {
             Frequently Asked <span className="text-gradient">Questions</span>
           </h2>
           <p className="mt-3 text-slate-500">
-            Everything you need to know about sourcing crops from AgroExport India.
+            Everything you need to know about sourcing crops from Arihant Enterprises.
           </p>
         </motion.div>
 

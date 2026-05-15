@@ -59,7 +59,7 @@ export function Footer() {
                 <Phone className="w-4 h-4 text-primary-500 flex-shrink-0" />
                 +91 79998 37117
               </a>
-              <a href="mailto:arihant.entt108@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-primary-400 transition-colors">
+              <a href="https://mail.google.com/mail/?view=cm&to=arihant.entt108@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-primary-400 transition-colors">
                 <Mail className="w-4 h-4 text-primary-500 flex-shrink-0" />
                 arihant.entt108@gmail.com
               </a>

@@ -169,7 +169,7 @@ export function AdminLayout({ children }: Props) {
               <h1 className="font-bold text-slate-900 text-sm">
                 {navItems.find((n) => n.href === pathname)?.label || 'Dashboard'}
               </h1>
-              <p className="text-xs text-slate-400">AgroExport Admin</p>
+              <p className="text-xs text-slate-400">Arihant Enterprises Admin</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

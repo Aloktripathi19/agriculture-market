@@ -76,7 +76,7 @@ export function SeasonalHighlights() {
             Why Choose Us
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold font-display text-slate-900">
-            Why Buyers Trust <span className="text-gradient">AgroExport India</span>
+            Why Buyers Trust <span className="text-gradient">Arihant Enterprises</span>
           </h2>
           <p className="mt-3 text-slate-500 max-w-2xl mx-auto">
             We combine direct farm relationships, strict quality control, and seamless export processes to deliver crops you can rely on.
