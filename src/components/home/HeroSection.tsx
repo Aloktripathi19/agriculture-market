@@ -155,7 +155,7 @@ export function HeroSection() {
 
               {/* Stats badge */}
               <div className="absolute top-4 right-4 glass rounded-xl px-3 py-2 text-center shadow-lg">
-                <p className="text-2xl font-bold text-primary-600">500+</p>
+                <p className="text-2xl font-bold text-primary-600">100+</p>
                 <p className="text-xs text-slate-500">Crop Varieties</p>
               </div>
             </motion.div>
