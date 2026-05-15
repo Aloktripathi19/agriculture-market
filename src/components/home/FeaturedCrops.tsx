@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Star, Leaf, Award } from 'lucide-react';
+import { ArrowRight, Star, Leaf, Award, MapPin } from 'lucide-react';
 import type { Product } from '@/types';
 import { productService } from '@/lib/services/productService';
-import { formatPrice, STATUS_LABELS, STATUS_COLORS } from '@/lib/utils';
+import { STATUS_LABELS, STATUS_COLORS } from '@/lib/utils';
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
   return (
@@ -60,19 +60,17 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           </h3>
         </div>
 
-        <p className="text-sm text-slate-500 line-clamp-2 mb-3">{product.shortDescription}</p>
+        <p className="text-sm text-slate-500 line-clamp-2 mb-2">{product.shortDescription}</p>
 
-        <div className="flex items-center gap-1 mb-3">
-          <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-          <span className="text-sm font-medium text-slate-700">{product.rating}</span>
-          <span className="text-xs text-slate-400">({product.reviewCount})</span>
-          <span className="text-slate-200 mx-1">•</span>
-          <span className="text-xs text-slate-500">{product.origin}</span>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 rounded-full text-xs text-slate-600 font-medium mb-3 max-w-full">
+          <MapPin className="w-3 h-3 text-primary-500 flex-shrink-0" />
+          <span className="truncate">{product.origin}</span>
         </div>
 
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-xl font-bold text-primary-600">{formatPrice(product.price)}</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            <span className="text-sm font-medium text-slate-700">{product.rating}</span>
           </div>
           <Link
             href={`/marketplace/${product.slug}`}

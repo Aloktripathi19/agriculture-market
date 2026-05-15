@@ -19,7 +19,7 @@ export interface Product {
   category: ProductCategory;
   description: string;
   shortDescription: string;
-  price: number;
+  price?: number;
   priceUnit?: string;
   minOrderQty?: number;
   minOrderUnit?: string;
@@ -36,8 +36,8 @@ export interface Product {
   packagingDetails: string;
   exportCountries: string[];
   certifications: string[];
-  nutritionInfo: Record<string, string>;
-  specifications: Record<string, string>;
+  nutritionInfo: string;
+  specifications: string;
   tags: string[];
   rating: number;
   reviewCount: number;

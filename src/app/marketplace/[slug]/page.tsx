@@ -13,7 +13,7 @@ import { ProductCard } from '@/components/marketplace/ProductCard';
 import { InquiryForm } from '@/components/marketplace/InquiryForm';
 import type { Product } from '@/types';
 import { productService } from '@/lib/services/productService';
-import { formatPrice, STATUS_LABELS, STATUS_COLORS, formatDate } from '@/lib/utils';
+import { STATUS_LABELS, STATUS_COLORS, formatDate } from '@/lib/utils';
 
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -149,7 +149,6 @@ export default function ProductDetailPage() {
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                     <span className="font-medium text-slate-700">{product.rating}</span>
-                    <span>({product.reviewCount} reviews)</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <MapPin className="w-4 h-4 text-primary-500" />
@@ -161,12 +160,6 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
 
-                <div className="flex items-end gap-4 mb-6">
-                  <div>
-                    <p className="text-3xl font-bold text-primary-600">{formatPrice(product.price)}</p>
-                    {product.priceUnit && <p className="text-sm text-slate-500">{product.priceUnit}</p>}
-                  </div>
-                </div>
 
                 {/* Tabs */}
                 <div className="border-b border-slate-100 mb-5">
@@ -229,29 +222,15 @@ export default function ProductDetailPage() {
                 )}
 
                 {activeTab === 'specs' && (
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <tbody>
-                        {Object.entries(product.specifications).map(([k, v]) => (
-                          <tr key={k} className="border-b border-slate-50">
-                            <td className="py-2 pr-4 text-slate-500 font-medium w-1/2">{k}</td>
-                            <td className="py-2 text-slate-800">{v}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <p className="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">
+                    {typeof product.specifications === 'string' && product.specifications ? product.specifications : 'No specifications added yet.'}
+                  </p>
                 )}
 
                 {activeTab === 'nutrition' && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {Object.entries(product.nutritionInfo).map(([k, v]) => (
-                      <div key={k} className="p-3 bg-slate-50 rounded-xl text-center">
-                        <p className="text-sm font-bold text-slate-900">{v}</p>
-                        <p className="text-xs text-slate-500 mt-0.5">{k}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-sm text-slate-700 whitespace-pre-wrap leading-relaxed">
+                    {typeof product.nutritionInfo === 'string' && product.nutritionInfo ? product.nutritionInfo : 'No nutrition info added yet.'}
+                  </p>
                 )}
               </div>
             </div>

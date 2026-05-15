@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Star, Leaf, Award, ArrowRight, MapPin } from 'lucide-react';
 import type { Product } from '@/types';
-import { formatPrice, STATUS_LABELS, STATUS_COLORS } from '@/lib/utils';
+import { STATUS_LABELS, STATUS_COLORS } from '@/lib/utils';
 
 interface Props {
   product: Product;
@@ -57,8 +57,8 @@ export function ProductCard({ product, index = 0 }: Props) {
           </h3>
         </Link>
 
-        <div className="flex items-center gap-1 text-xs text-slate-500 mb-2">
-          <MapPin className="w-3 h-3 flex-shrink-0" />
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 rounded-full text-xs text-slate-600 font-medium mb-2 max-w-full">
+          <MapPin className="w-3 h-3 text-primary-500 shrink-0" />
           <span className="truncate">{product.origin}</span>
         </div>
 
@@ -67,13 +67,9 @@ export function ProductCard({ product, index = 0 }: Props) {
         <div className="flex items-center gap-1 mb-4">
           <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
           <span className="text-sm font-medium text-slate-700">{product.rating}</span>
-          <span className="text-xs text-slate-400">({product.reviewCount} reviews)</span>
         </div>
 
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-xl font-bold text-primary-600">{formatPrice(product.price)}</p>
-          </div>
+        <div className="flex justify-end">
           <Link
             href={`/marketplace/${product.slug}`}
             className="flex items-center gap-1.5 px-4 py-2 gradient-green text-white text-sm font-medium rounded-xl shadow hover:opacity-90 transition-opacity"

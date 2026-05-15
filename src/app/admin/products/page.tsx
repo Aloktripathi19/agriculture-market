@@ -8,28 +8,30 @@ import { z } from 'zod';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import type { Product, ProductStatus } from '@/types';
 import { productService } from '@/lib/services/productService';
-import { formatPrice, STATUS_LABELS, STATUS_COLORS, formatDate, generateId, slugify } from '@/lib/utils';
+import { STATUS_LABELS, STATUS_COLORS, formatDate, generateId, slugify } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 const schema = z.object({
   name: z.string().min(2),
   shortDescription: z.string().min(10),
   description: z.string().min(20),
-  price: z.number().min(1),
-  priceUnit: z.string().default('per kg'),
   thumbnail: z.string().url('Enter valid image URL'),
   status: z.enum(['available', 'limited', 'out-of-stock', 'pre-order']),
   isExportQuality: z.boolean(),
   isOrganic: z.boolean(),
   isFeatured: z.boolean(),
+  rating: z.number().min(0).max(5).default(0),
   origin: z.string().min(2),
   farmingMethod: z.string().default(''),
   packagingDetails: z.string().default(''),
   harvestDate: z.string().default(''),
   availableUntil: z.string().default(''),
+  specifications: z.string().default(''),
+  nutritionInfo: z.string().default(''),
 });
 
 type FormData = z.infer<typeof schema>;
+
 
 function ProductModal({ product, onClose, onSave }: { product: Product | null; onClose: () => void; onSave: (p: Product) => void }) {
   const isEdit = !!product;
@@ -37,11 +39,13 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
     resolver: zodResolver(schema),
     defaultValues: product ? {
       name: product.name, shortDescription: product.shortDescription,
-      description: product.description, price: product.price, priceUnit: product.priceUnit || 'per kg', thumbnail: product.thumbnail,
+      description: product.description, thumbnail: product.thumbnail,
       status: product.status, isExportQuality: product.isExportQuality, isOrganic: product.isOrganic,
-      isFeatured: product.isFeatured, origin: product.origin, farmingMethod: product.farmingMethod,
+      isFeatured: product.isFeatured, rating: product.rating ?? 0, origin: product.origin, farmingMethod: product.farmingMethod,
       packagingDetails: product.packagingDetails, harvestDate: product.harvestDate?.split('T')[0],
       availableUntil: product.availableUntil?.split('T')[0],
+      specifications: typeof product.specifications === 'string' ? product.specifications : '',
+      nutritionInfo: typeof product.nutritionInfo === 'string' ? product.nutritionInfo : '',
     } : { status: 'available', isExportQuality: false, isOrganic: false, isFeatured: false },
   });
 
@@ -53,10 +57,7 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
       images: product?.images || [data.thumbnail],
       exportCountries: product?.exportCountries || [],
       certifications: product?.certifications || [],
-      nutritionInfo: product?.nutritionInfo || {},
-      specifications: product?.specifications || {},
       tags: product?.tags || [],
-      rating: product?.rating || 4.5,
       reviewCount: product?.reviewCount || 0,
       createdAt: product?.createdAt || now,
       updatedAt: now,
@@ -91,13 +92,6 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
               </select>
             </div>
             <div className="col-span-2">
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Price *</label>
-              <div className="flex gap-2">
-                <input {...register('price', { valueAsNumber: true })} type="number" placeholder="e.g. 500" className="flex-1 px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                <input {...register('priceUnit')} placeholder="per kg, per MT..." className="w-32 px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-              </div>
-            </div>
-            <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Thumbnail URL *</label>
               <input {...register('thumbnail')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="https://images.unsplash.com/..." />
               {errors.thumbnail && <p className="text-xs text-red-500 mt-1">{errors.thumbnail.message}</p>}
@@ -105,6 +99,10 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Origin</label>
               <input {...register('origin')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="State, India" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Rating (0–5)</label>
+              <input {...register('rating', { valueAsNumber: true })} type="number" min={0} max={5} step={0.1} placeholder="e.g. 4.5" className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Harvest Date</label>
@@ -117,7 +115,15 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
             </div>
             <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Full Description *</label>
-              <textarea {...register('description')} rows={3} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" />
+              <textarea {...register('description')} rows={5} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" />
+            </div>
+            <div className="col-span-2">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Specifications</label>
+              <textarea {...register('specifications')} rows={3} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" placeholder="e.g. Grain Length: 8.3mm, Moisture: 12%, Broken: 1% max" />
+            </div>
+            <div className="col-span-2">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Nutrition Info</label>
+              <textarea {...register('nutritionInfo')} rows={3} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" placeholder="e.g. Calories: 130kcal, Protein: 2.7g, Carbs: 28g, Fat: 0.3g" />
             </div>
           </div>
 
@@ -205,7 +211,7 @@ export default function AdminProductsPage() {
             <table className="w-full">
               <thead className="bg-slate-50">
                 <tr>
-                  {['Crop', 'Price', 'Status', 'Quality', 'Updated', 'Actions'].map((h) => (
+                  {['Crop', 'Status', 'Quality', 'Updated', 'Actions'].map((h) => (
                     <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
@@ -215,7 +221,7 @@ export default function AdminProductsPage() {
                   [...Array(5)].map((_, i) => (
                     <tr key={i} className="animate-pulse">
                       <td className="px-4 py-3"><div className="h-10 bg-slate-100 rounded-lg" /></td>
-                      {[...Array(6)].map((_, j) => <td key={j} className="px-4 py-3"><div className="h-6 bg-slate-100 rounded" /></td>)}
+                      {[...Array(5)].map((_, j) => <td key={j} className="px-4 py-3"><div className="h-6 bg-slate-100 rounded" /></td>)}
                     </tr>
                   ))
                 ) : filtered.map((p) => (
@@ -231,8 +237,7 @@ export default function AdminProductsPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm font-medium text-slate-900 whitespace-nowrap">{formatPrice(p.price)} <span className="text-xs text-slate-400">{p.priceUnit}</span></td>
-                    <td className="px-4 py-3"><span className={`px-2 py-1 text-xs font-medium rounded-lg border ${STATUS_COLORS[p.status]}`}>{STATUS_LABELS[p.status]}</span></td>
+                                        <td className="px-4 py-3"><span className={`px-2 py-1 text-xs font-medium rounded-lg border ${STATUS_COLORS[p.status]}`}>{STATUS_LABELS[p.status]}</span></td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
                         {p.isExportQuality && <span title="Export Quality" className="text-amber-500">🏆</span>}
@@ -254,7 +259,7 @@ export default function AdminProductsPage() {
                   </tr>
                 ))}
                 {!isLoading && filtered.length === 0 && (
-                  <tr><td colSpan={6} className="px-4 py-10 text-center text-slate-400">No crops found</td></tr>
+                  <tr><td colSpan={5} className="px-4 py-10 text-center text-slate-400">No crops found</td></tr>
                 )}
               </tbody>
             </table>
