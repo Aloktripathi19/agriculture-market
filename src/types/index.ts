@@ -32,6 +32,7 @@ export interface Product {
   harvestDate: string;
   availableUntil: string;
   origin: string;
+  hsCode?: string;
   farmingMethod: string;
   packagingDetails: string;
   exportCountries: string[];

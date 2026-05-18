@@ -13,8 +13,7 @@ import toast from 'react-hot-toast';
 
 const schema = z.object({
   name: z.string().min(2),
-  shortDescription: z.string().min(10),
-  description: z.string().min(20),
+  description: z.string().min(10),
   thumbnail: z.string().url('Enter valid image URL'),
   status: z.enum(['available', 'limited', 'out-of-stock', 'pre-order']),
   isExportQuality: z.boolean(),
@@ -22,6 +21,7 @@ const schema = z.object({
   isFeatured: z.boolean(),
   rating: z.number().min(0).max(5).default(0),
   origin: z.string().min(2),
+  hsCode: z.string().default(''),
   farmingMethod: z.string().default(''),
   packagingDetails: z.string().default(''),
   harvestDate: z.string().default(''),
@@ -38,10 +38,10 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(schema),
     defaultValues: product ? {
-      name: product.name, shortDescription: product.shortDescription,
+      name: product.name,
       description: product.description, thumbnail: product.thumbnail,
       status: product.status, isExportQuality: product.isExportQuality, isOrganic: product.isOrganic,
-      isFeatured: product.isFeatured, rating: product.rating ?? 0, origin: product.origin, farmingMethod: product.farmingMethod,
+      isFeatured: product.isFeatured, rating: product.rating ?? 0, origin: product.origin, hsCode: product.hsCode ?? '', farmingMethod: product.farmingMethod,
       packagingDetails: product.packagingDetails, harvestDate: product.harvestDate?.split('T')[0],
       availableUntil: product.availableUntil?.split('T')[0],
       specifications: typeof product.specifications === 'string' ? product.specifications : '',
@@ -54,6 +54,7 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
     const newProduct: Product = {
       id: product?.id || generateId('prod'),
       slug: product?.slug || slugify(data.name),
+      shortDescription: data.description.length > 120 ? data.description.slice(0, 120).trimEnd() + '…' : data.description,
       images: product?.images || [data.thumbnail],
       exportCountries: product?.exportCountries || [],
       certifications: product?.certifications || [],
@@ -101,6 +102,10 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
               <input {...register('origin')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="State, India" />
             </div>
             <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">HS Code</label>
+              <input {...register('hsCode')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="e.g. 1006, 0713, 0907" />
+            </div>
+            <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Rating (0–5)</label>
               <input {...register('rating', { valueAsNumber: true })} type="number" min={0} max={5} step={0.1} placeholder="e.g. 4.5" className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
             </div>
@@ -109,13 +114,9 @@ function ProductModal({ product, onClose, onSave }: { product: Product | null; o
               <input {...register('harvestDate')} type="date" className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
             </div>
             <div className="col-span-2">
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Short Description *</label>
-              <input {...register('shortDescription')} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-              {errors.shortDescription && <p className="text-xs text-red-500 mt-1">{errors.shortDescription.message}</p>}
-            </div>
-            <div className="col-span-2">
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Full Description *</label>
-              <textarea {...register('description')} rows={5} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" />
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Description *</label>
+              <textarea {...register('description')} rows={5} className="w-full px-3 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" placeholder="Describe the crop — quality, origin, use cases, export suitability, etc." />
+              {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description.message}</p>}
             </div>
             <div className="col-span-2">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Specifications</label>

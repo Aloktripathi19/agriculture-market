@@ -184,6 +184,14 @@ export default function ProductDetailPage() {
                   <div className="space-y-4">
                     <p className="text-slate-600 leading-relaxed text-sm">{product.description}</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                      {product.hsCode && (
+                        <div className="col-span-2">
+                          <h4 className="text-xs font-semibold text-slate-500 uppercase mb-2">HS Code</h4>
+                          <span className="inline-flex items-center px-3 py-1.5 bg-slate-100 border border-slate-200 text-slate-700 text-sm font-mono font-semibold rounded-lg">
+                            {product.hsCode}
+                          </span>
+                        </div>
+                      )}
                       <div>
                         <h4 className="text-xs font-semibold text-slate-500 uppercase mb-2">Farming Method</h4>
                         <p className="text-sm text-slate-700">{product.farmingMethod}</p>

@@ -16,7 +16,7 @@ function BlogModal({ post, onClose, onSave }: { post: BlogPost | null; onClose: 
     content: post?.content || '',
     coverImage: post?.coverImage || '',
     author: post?.author || 'Admin',
-    authorAvatar: post?.authorAvatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
+    authorAvatar: post?.authorAvatar || '/co-founder.jpeg',
     category: post?.category || 'Market Insights',
     readTime: post?.readTime || 5,
     isPublished: post?.isPublished ?? true,
